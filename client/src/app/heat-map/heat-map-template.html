@@ -1,0 +1,36 @@
+<div id="heatmap" class="col-sm-10">
+    <div class="row content">
+        <div (click)="cellClickedLocal(cell)" class="pointer" id="{{cell.Name}}" *ngFor="let cell of heatmap.Items" [ngStyle]="{'width': cellWidth(cell), 'height': cellHeight(cell), 'left': cellLeft(cell), 'top': cellTop(cell)}">
+            <span class="name">{{cell.Name}}</span>
+            <span class="count">{{cell.Result.length}}</span>
+        </div>
+    </div>
+
+    <span class="xdesc">{{heatmap.XDesc}}</span>
+    <span class="ydesc">{{heatmap.YDesc}}</span>
+    <div class="xrange">
+        <div *ngFor="let xp of heatmap.XRanges" [ngStyle]="{left:(xp*HeatMapWidth - 5) + 'px'}">
+            {{xp}}
+        </div>
+    </div>
+    <div class="yrange">
+        <div *ngFor="let yp of heatmap.YRanges" [ngStyle]="{top:((1- yp)*HeatMapHeight + 5) + 'px'}">
+            {{yp}}
+        </div>
+    </div>
+
+    <!--<div class="loading" [hidden]="!loading"></div>-->
+</div>
+<div class="col-sm-2 configuration">
+    <ul>
+        <li>
+            <div class="header">X Axis</div>
+            <div style="position: relative" com-dropdown [DataSet]="heatmap.Fields" [IsMultiSelect]="false" [SingleSelected]="heatmap.XFieldName" (onDataChange)="onXAxisChanged($event)"></div>
+        </li>
+        <li>
+            <div class="header">Y Axis</div>
+            <div style="position: relative" com-dropdown [DataSet]="heatmap.Fields" [IsMultiSelect]="false" [SingleSelected]="heatmap.YFieldName" (onDataChange)="onYAxisChanged($event)"></div>
+        </li>
+
+    </ul>
+</div>

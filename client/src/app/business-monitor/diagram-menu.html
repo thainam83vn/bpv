@@ -1,0 +1,10 @@
+<ul style="list-style:none">
+    <li *ngIf="Root.Children.length>0" class="has-sub" style="margin-left:-25px;min-height:40px">
+        <a style="color:#fff;text-decoration: none" (click)="hover=!hover">{{Root.Name}}</a><span _ngcontent-cwo-3="" class="caret"></span>
+        <ul *ngIf="hover" style="list-style:none">
+            <li diagram-menu style="margin-left:-25px;min-height:30px" *ngFor="let item of Root.Children" [Root]="item" (menuClick)="menuClickLocal(item)"></li>
+        </ul>
+    </li>
+
+    <li *ngIf="Root.Children.length==0" style="list-style:none;margin-left:-25px;min-height:40px"><a style="color:#fff;text-decoration: none" (click)="menuClickLocal(Root)">{{Root.Name}}</a></li>
+</ul>

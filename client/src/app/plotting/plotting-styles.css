@@ -1,0 +1,437 @@
+.unselectable {
+    -webkit-user-select: none;
+    /* Chrome/Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE10+ */
+    /* Rules below not implemented in browsers yet */
+    -o-user-select: none;
+    user-select: none;
+}
+
+li {
+    list-style: none;
+}
+
+#P4R1,
+#P3R2,
+#P2R3,
+#P1R4 {
+    background-color: lightgoldenrodyellow;
+}
+
+#P4R2,
+#P3R3,
+#P2R4 {
+    background-color: lightsalmon;
+}
+
+#P4R3,
+#P3R4 {
+    background-color: lightpink;
+}
+
+#P4R4 {
+    background-color: lightcoral;
+}
+
+#P3R1,
+#P2R2,
+#P1R3 {
+    background-color: #1bc2a2;
+}
+
+#P2R1,
+#P1R2 {
+    background-color: lightseagreen;
+}
+
+#P1R1 {
+    background-color: darkcyan;
+}
+
+.pointmap {
+    /*width: 800px;
+    height: 500px;*/
+    /*position: absolute;
+    left: 400px;*/
+    position: relative;
+}
+
+.pointmap .xrange {
+    background-color: transparent;
+}
+
+.pointmap .yrange {
+    background-color: transparent;
+    position: absolute;
+    left: 105px;
+    top: 35px;
+    width: 20px;
+    height: 600px;
+    font-weight: 600;
+}
+
+.pointmap>div:nth-child(1) {
+    position: relative;
+    left: 150px;
+    top: 50px;
+    width: 91%;
+    height: 600px;
+    background-color: #fff;
+}
+
+.pointmap>div:nth-child(2) {
+    background-color: transparent;
+}
+
+.pointmap>div.xrange {
+    position: relative;
+    top: 50px;
+    left: 104px;
+    width: 91%;
+    font-weight: 600;
+}
+
+.pointmap>span.xdesc {
+    position: absolute;
+    bottom: -110px;
+    left: 360px;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.pointmap>span.ydesc {
+    position: absolute;
+    top: 300px;
+    left: -60px;
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.pointmap>div>div {
+    position: absolute;
+}
+
+.pointmap>div.content {
+    border: 1px #333 solid;
+    background-color: aliceblue;
+    overflow: hidden;
+}
+
+.pointmap>div.content>div.rect {
+    /*border: 1px #333 solid;*/
+    background-color: navy;
+    opacity: 0.2;
+    position: absolute;
+}
+
+.pointmap>div.content {
+    text-align: center;
+}
+
+.pointmap>div.content>div.circle {
+    font-size: 8px;
+    color: #333;
+}
+
+.pointmap>div.content>div.customer {}
+
+.pointmap>div.content>div.customer>.circle {
+    opacity: 0.5;
+    border-radius: 50%;
+}
+
+.pointmap>div.content>div.customer>.text {
+    font-size: 10px;
+    margin-top: 7px;
+}
+
+.pointmap>div.content>div:hover {
+    border: 1px solid #fff;
+}
+
+.pointmap>div div span.name {
+    font-size: 10px;
+    font-family: sans-serif;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+}
+
+.pointmap>div div span.count {
+    font-size: 20px;
+    font-family: sans-serif;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+}
+
+.progress.selected span {
+    color: red !important;
+}
+
+.configuration i {
+    color: #fff;
+}
+
+.configuration {
+    background-color: #353d47;
+    padding: 0px;
+    position: absolute;
+    left: 0px;
+    top: 50px;
+    width: 100%;
+    /*height: 840px;*/
+}
+
+.configuration input.form-control {
+    height: 25px;
+}
+
+.configuration button {
+    height: 25px;
+    padding: 3px 6px;
+}
+
+.configuration .progress {
+    background-color: #353d47;
+    position: relative;
+    /* top: 0px; */
+    left: 0px;
+    width: 150px;
+    height: 25px;
+    border: 1px solid #fff;
+    display: inline-block;
+    border-radius: 0px;
+    padding-left: 3px;
+}
+
+.configuration .progress>span {
+    font-size: 11px;
+}
+
+.configuration .progress>div {
+    background-color: #dddddd;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    opacity: 0.3;
+}
+
+.configuration>ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.configuration>ul>li>div {
+    display: inline-block;
+    background: #2a2c2f;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+}
+
+.configuration span {
+    color: #fff;
+    font-size: 15px;
+}
+
+.configuration>ul>li>div>span:last-of-type {
+    position: absolute;
+    right: 20px;
+}
+
+.configuration>ul>li>ul {
+    list-style: none;
+    padding: 10px;
+}
+
+.configuration>ul button {
+    /*color: #333;*/
+}
+
+.pointmap .content .xdash {
+    height: 100%;
+    width: 1px;
+    border: 1px dashed #333;
+}
+
+.pointmap .content .ydash {
+    height: 1px;
+    width: 100%;
+    border: 1px dashed #1bc2a2;
+}
+
+.pointmap .content .xline {
+    height: 100%;
+    width: 1px;
+    border: 1px solid #aaa;
+    opacity: 0.1;
+}
+
+.pointmap .content .yline {
+    height: 1px;
+    width: 100%;
+    border: 1px solid #aaa;
+    opacity: 0.1;
+}
+
+.dash-tag {
+    background-color: #337ab7;
+    color: #333;
+    display: inline-block;
+    min-width: 50px;
+    border-radius: 10px;
+    padding-left: 9px;
+    margin-top: 3px;
+}
+
+.loader {
+    border: 2px solid #f3f3f3;
+    /* Light grey */
+    border-top: 2px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 30px !important;
+    height: 30px !important;
+    animation: spin 2s linear infinite;
+    margin-left: 45%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-toggled i {
+    color: red !important;
+}
+
+.btn-toggled span {
+    color: red !important;
+}
+
+.panel {
+    background: #353d47;
+    width: 100%;
+    margin: 0px;
+    padding: 0px !important;
+    padding-left: 10px !important;
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height 0.25s ease-out;
+}
+
+.panel.expanded {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+}
+
+nav.left {
+    width: 50px;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    background-color: #353d47;
+    color: white;
+    overflow: hidden;
+    z-index: 99999;
+}
+
+nav.left .cssmenuItem {
+    display: none !important;
+}
+
+nav.left .cssmenuItem>ul>li>span {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+    background: #36aae7;
+    background: -webkit-linear-gradient(#36aae7, #1fa0e4);
+    background: -moz-linear-gradient(#36aae7, #1fa0e4);
+    background: -o-linear-gradient(#36aae7, #1fa0e4);
+    background: -ms-linear-gradient(#36aae7, #1fa0e4);
+    background: linear-gradient(#36aae7, #1fa0e4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+nav.left .cssmenuItem>ul {}
+
+nav.left .cssmenuItem>ul>li {}
+
+nav.left .cssmenuItem>ul>li>ul {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height 0.25s ease-out;
+}
+
+nav.left .cssmenuItem>ul>li>ul.expanded {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+    overflow: scroll;
+}
+
+nav.left.fixed {
+    width: 250px;
+}
+
+nav.left.fixed .cssmenuItem {
+    display: block !important;
+}
+
+nav.left:hover {
+    width: 250px;
+}
+
+nav.left .configuration {
+    width: 0px;
+    height: 100%;
+    overflow: hidden;
+}
+
+nav.left:hover .configuration {
+    width: 100%;
+}
+
+nav.fixed .configuration {
+    width: 100%;
+}
+
+nav.left:hover .cssmenuItem {
+    display: block !important;
+}
+
+nav.left .cssmenuItem>span:nth-child(1) {
+    height: 35px;
+    display: inline-block;
+    font-size: 15px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+nav.left.fixed .toggle-button {
+    cursor: pointer;
+    transform: rotate(90deg);
+}

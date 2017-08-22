@@ -1,0 +1,44 @@
+<style>
+    .btn-group.multiple {
+        position: absolute !important;
+        top: 30px;
+        left: 0px;
+    }
+    
+    .btn-group.multiple>.dropdown-menu>li>a:before {
+        font-family: "FontAwesome";
+        font-size: 16px;
+        content: " ";
+        margin: 10px;
+        position: absolute;
+        top: 30px;
+        left: 0px;
+    }
+    
+    .btn-group.multiple>.dropdown-menu>li>a.on:before {
+        content: "\f00c";
+    }
+    
+    .pointer {
+        cursor: pointer;
+    }
+    
+    button.dropdown-toggle {
+        height: 25px;
+        padding: 3px 6px;
+    }
+</style>
+<button type="button" style="" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" (click)="btnClick()">
+                                <span [innerHtml]="Title"></span>
+                                <span class="caret"></span>
+                                <span class="selections ng-binding"></span>
+</button>
+<div class="btn-group multiple" [ngClass]="{open: down}" [ngStyle]="{'left': LayoutPopupLeft + 'px'}">
+    <ul class="dropdown-menu" style="max-height:400px;overflow:overlay">
+        <li class="pointer" *ngFor="let item of DataSet" [hidden]="isExclusive(item)">
+            <a (click)="itemClick(item)">
+                {{item[DisplayField]}}
+            </a>
+        </li>
+    </ul>
+</div>

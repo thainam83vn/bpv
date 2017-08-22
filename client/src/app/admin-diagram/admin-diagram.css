@@ -1,0 +1,29 @@
+.admin-diagram {
+    font-size: 15px;
+    background-color: #eee;
+    width: 50%;
+    height: 800px;
+    max-width: 500px;
+}
+
+.admin-diagram .diagram-detail {
+    position: absolute;
+    right: 0px;
+    top: 100px;
+    background-color: #353d47;
+    color: #fff;
+    /* padding-right: 30px; */
+    /* padding-top: 10px; */
+    /* padding-bottom: 10px; */
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+.admin-diagram .diagram-detail .row {
+    height: 40px;
+}
+
+div.row {
+    padding: 5px;
+}

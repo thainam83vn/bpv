@@ -1,0 +1,137 @@
+#P4R1,
+#P3R2,
+#P2R3,
+#P1R4 {
+    background-color: lightgoldenrodyellow;
+}
+
+#P4R2,
+#P3R3,
+#P2R4 {
+    background-color: lightsalmon;
+}
+
+#P4R3,
+#P3R4 {
+    background-color: lightpink;
+}
+
+#P4R4 {
+    background-color: lightcoral;
+}
+
+#P3R1,
+#P2R2,
+#P1R3 {
+    background-color: #1bc2a2;
+}
+
+#P2R1,
+#P1R2 {
+    background-color: lightseagreen;
+}
+
+#P1R1 {
+    background-color: darkcyan;
+}
+
+#heatmap {
+    /*width: 800px;
+    height: 500px;*/
+    /*position: absolute;
+    left: 400px;*/
+}
+
+#heatmap .xrange {
+    background-color: transparent;
+}
+
+#heatmap .yrange {
+    background-color: transparent;
+    position: absolute;
+    left: 119px;
+    top: 35px;
+    width: 20px;
+    height: 400px;
+}
+
+#heatmap>div:nth-child(1) {
+    position: relative;
+    left: 150px;
+    top: 50px;
+    width: 400px;
+    height: 400px;
+    background-color: #fff;
+}
+
+#heatmap>div:nth-child(2) {
+    background-color: transparent;
+}
+
+#heatmap>div.xrange {
+    position: relative;
+    top: 50px;
+    left: 150px;
+}
+
+#heatmap>span.xdesc {
+    position: absolute;
+    top: 500px;
+    left: 279px;
+}
+
+#heatmap>span.ydesc {
+    position: absolute;
+    top: 231px;
+    /* left: 50px; */
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+#heatmap>div>div {
+    position: absolute;
+}
+
+#heatmap>div.content {
+    border: 1px #333 solid;
+}
+
+#heatmap>div.content>div:hover {
+    border: 1px solid #fff;
+}
+
+#heatmap>div div span.name {
+    font-size: 10px;
+    font-family: sans-serif;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+}
+
+#heatmap>div div span.count {
+    font-size: 20px;
+    font-family: sans-serif;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+}
+
+.configuration {
+    background-color: #353d47;
+    padding: 0px;
+    /*position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 300px;
+    height: 100%;*/
+}
+
+.configuration>ul {
+    list-style: none;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.configuration .header {}

@@ -1,0 +1,113 @@
+"use strict";
+
+var inspur = inspur || {};
+inspur.ppm = { currHost: 'http://localhost:8080', serviceHost: "http://localhost:8080/ProcessMonitoringWS" };
+inspur.ppm.svg = {};
+inspur.ppm.site = { leftNavOrgWidth: '50px', leftNavExpWidth: '250px', isLeftNavExp: false};
+inspur.ppm.site.menu = {};
+inspur.ppm.util = {};
+
+$(document).ready(function(){	
+	try{
+		inspur.ppm.site.buttonBinding();
+		var urlParams = inspur.ppm.util.getUrlVars();
+		var isDiagramViewMode = false;
+		if (location.href.indexOf('viewDiagram.action') != -1 && urlParams['diagramId'])
+			isDiagramViewMode = true;
+		
+		if(isDiagramViewMode){			
+			$.getJSON(inspur.ppm.serviceHost + "/api/KPIMetric/GetByDiagramId/" + urlParams['diagramId'])
+			.done(function(data){
+				if(data && data.length > 0){
+					console.log("inspur.ppm::reading... metrics diagram id: " + urlParams['diagramId']);
+					inspur.ppm.svg.updateMetric(data);
+				}
+			})
+			.fail(function(xhr, err, msg){
+				console.log(xhr, err, msg);
+			});
+						
+			$.getJSON("http://localhost:8080/ProcessMonitoringWS/api/ShapeWS/GetConfigurableShapeByDiagramId/2")
+			.done(function(data){
+				console.log("Get Configiurable Shapes");			
+				console.log(data);
+			})
+			.fail(function(xhr, err, msg){
+				console.log(xhr, err, msg);
+			});
+		}
+		
+		$.getJSON("http://localhost:8080/ProcessMonitoringWS/api/KPIMetric/GetAllDiagram")
+		.done(function(data){	
+			console.log("Building diagrams menu...");
+			var menu = document.getElementById("ppmMenu");
+			inspur.ppm.site.menu.generateMenu(data, menu);	
+			inspur.ppm.site.menu.createMenuCtrl();
+			inspur.ppm.site.menu.getMenuColor(); 
+			
+			var menu = document.getElementById("diagramMenu");
+			inspur.ppm.site.menu.generateDiagramMenu(data, menu);	
+		})
+		.fail(function(xhr, err, msg){
+			console.log(xhr, err, msg);
+		});		
+
+	}catch(ex){
+		console.log(ex);
+	}
+});
+
+inspur.ppm.svg.updateMetric = function(data){
+	var svg = $("svg");
+	if(svg){
+		data.forEach(function(ele, idx){
+			console.log(ele);
+			var shape = svg.find("g[id^='" + ele.shapeId.toLowerCase() + "']");
+			if(ele.result)
+				shape.children("text").text(ele.result);
+			else
+				shape.children("text").text("xXx");
+			
+			//if(ele.clickEventType === "DRILD"){
+				shape.attr("class", "svgShape task");
+				shape.attr("data-id", ele.shapeId);
+				shape.on("click", inspur.ppm.svg.loadSubDiagram);
+				shape.attr("clickAddress", ele.diagramId);
+			//}			
+		});				
+	}
+}
+
+inspur.ppm.svg.loadSubDiagram = function(){
+	location.href = "viewDiagram.action?diagramId=" + $(this).attr("clickAddress");
+}
+
+inspur.ppm.site.buttonBinding = function(){
+	var topBtn = document.getElementsByClassName("toggle-button")[0];
+	topBtn.onclick = inspur.ppm.site.topToggleButton;
+}
+
+inspur.ppm.site.topToggleButton = function(){	
+	if(!inspur.ppm.site.isLeftNavExp){
+		document.querySelector("body > nav").style.width = inspur.ppm.site.leftNavExpWidth;
+		document.querySelector("body > section").style.marginLeft = inspur.ppm.site.leftNavExpWidth;
+		document.querySelector(".toggle-button").style.transform = "rotate(90deg)";
+		inspur.ppm.site.isLeftNavExp = true;
+	}else{
+		document.querySelector("body > nav").removeAttribute('style');
+		document.querySelector("body > section").removeAttribute('style');
+		document.querySelector(".toggle-button").removeAttribute('style');
+		inspur.ppm.site.isLeftNavExp = false;
+	}
+};
+
+inspur.ppm.util.getUrlVars = function(){
+	var vars = [], hash;
+	var hashes = location.href.slice(location.href.indexOf('?') + 1).split('&');
+	hashes.forEach(function(ele, idx){
+		hash = ele.split('=');
+		vars.push(hash[0]);
+		vars[hash[0]] = hash[1];
+	});
+	return vars;
+}

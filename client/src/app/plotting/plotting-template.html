@@ -1,0 +1,227 @@
+<div class="col-sm-12" *ngIf="meta">
+    <div class="row">
+        <div style="margin-left: 15px;cursor:pointer" data-grid [datasource]="currentDS" [displays]="meta.DisplayFields" [fields]="meta.Fields" (initControl)="initDataGridControl($event)"></div>
+    </div>
+    <div class="row pointmap">
+        <div class="row content" (mousedown)="mouseFilterDown($event)" (mouseup)="mouseFilterUp($event)" (mousemove)="mouseFilterMove($event)">
+            <div class="rect" *ngFor="let r of regionsPos" [ngStyle]="{left:r.Pos[0]+'px',top:r.Pos[1]+'px',width:r.Pos[2]+'px',height:r.Pos[3]+'px'}" [hidden]="!mouseDragging||!r.Active">
+                <!--<span>[{{mouseRect[0]}},{{mouseRect[1]}}]-[{{mouseRect[0]+mouseRect[2]}},{{mouseRect[1]mouseRect[3]}}]</span>-->
+            </div>
+
+            <div class="rect" [ngStyle]="{left:mouseRect[0]+'px',top:mouseRect[1]+'px',width:mouseRect[2]+'px',height:mouseRect[3]+'px'}" [hidden]="!mouseDragging">
+                <!--<span>[{{mouseRect[0]}},{{mouseRect[1]}}]-[{{mouseRect[0]+mouseRect[2]}},{{mouseRect[1]mouseRect[3]}}]</span>-->
+            </div>
+            <div class="customer unselectable" *ngFor="let cell of meta.Items" [ngStyle]="{'left': cell.XPercentage+'%', 'top': (100-cell.YPercentage)+'%','margin-top':-cell.Value*1.5 + 'px','margin-left':-cell.Value*1.5 + 'px'}">
+                <div class="circle" [ngStyle]="{'width': cell.Value*3 + 'px', 'height': cell.Value*3+'px','background-color':cell.Color}" (click)="selectItemLocal(cell)">
+
+                </div>
+                <span class="text">
+                {{cell.Name}}
+            </span>
+
+            </div>
+            <div class="xdash" *ngFor="let xd of meta.XDashes" [ngStyle]="{left: percentageX(xd) + '%'}" [hidden]="xd<meta.XMin||xd>meta.XMax"></div>
+            <div class="ydash" *ngFor="let yd of meta.YDashes" [ngStyle]="{top:(100-percentageY(yd)) + '%'}" [hidden]="yd<meta.YMin||yd>meta.YMax"></div>
+            <div class="xline" *ngFor="let xd of meta.XRanges" [ngStyle]="{left: xd.Value + '%'}" [hidden]="xd<meta.XMin||xd>meta.XMax"></div>
+            <div class="yline" *ngFor="let yd of meta.YRanges" [ngStyle]="{top:(100-yd.Value) + '%'}" [hidden]="yd<meta.YMin||xd>meta.YMax"></div>
+        </div>
+
+        <span class="xdesc">{{meta.XDesc}}</span>
+        <span class="ydesc">{{meta.YDesc}}</span>
+        <div class="xrange">
+            <div *ngFor="let xp of meta.XRanges" style="margin-left:20px" [ngStyle]="{left:xp.Value + '%'}">
+                {{xp.Name}}
+            </div>
+            <div *ngFor="let xp of meta.XDashes" style="margin-left:20px" [ngStyle]="{left:percentageX(xp) + '%'}">
+                {{xp}}
+            </div>
+        </div>
+        <div class="yrange">
+            <div *ngFor="let yp of meta.YRanges" [ngStyle]="{top:(100-yp.Value) + '%'}">
+                {{yp.Name}}
+            </div>
+            <div *ngFor="let yp of meta.YDashes" [ngStyle]="{top:(100-percentageX(yp)) + '%'}">
+                {{yp}}
+            </div>
+        </div>
+    </div>
+    <!--<div class="loading" [hidden]="!loading"></div>-->
+</div>
+<nav class="left" [ngClass]="{fixed:fixLeftNav}">
+    <button class="toggle-button" (click)="fixLeftNav=!fixLeftNav">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+    </button>
+    <div class="cssmenuIcon">
+        <ul>
+
+        </ul>
+    </div>
+    <div class="configuration">
+        <ul>
+            <li>
+                <div>
+                    <span>
+                    Filter
+                    <i *ngIf="this.selectedGroupableFields.length>0" (click)="removeGroup(itGroup)" class="fa fa-arrow-up" style="cursor:pointer" aria-hidden="true "></i>
+                </span>
+                    <span style="cursor:pointer">
+                    <i class="fa fa-caret-down" aria-hidden="true" (click)="(RightTab=='Groups'?RightTab='':RightTab='Groups')" *ngIf="RightTab!='Groups' "></i>
+                    <i class="fa fa-caret-up" aria-hidden="true" (click)="(RightTab=='Groups'?RightTab='':RightTab='Groups')" *ngIf="RightTab=='Groups' "></i>
+                </span>
+                </div>
+                <div class="loader" *ngIf="isLoading"></div>
+                <ul *ngIf="RightTab=='Groups' && selectedGroupableFields.length == 0" [hidden]="isLoading">
+                    <li>
+                        <div style="position:absolute" com-dropdown-button [Title]="IconGroup" [LayoutPopupLeft]='0' [DataSet]="meta.GroupableFields" [DisplayField]="'Name'" [ExclusiveList]="selectedGroupableFieldsRange" [ExclusiveField]="'Name'" (onItemClicked)="onGroupChanged($event, null)"></div>
+                    </li>
+                </ul>
+                <ul *ngIf="RightTab=='Groups' && selectedGroupableFields.legnth != 0" [hidden]="isLoading">
+                    <li *ngFor="let group of selectedGroupableFields;let last = last">
+                        <div class="not-last" *ngIf="!last" style="height:30px">
+                            <div class="progress">
+                                <div [ngStyle]="{'width': group.Value.Percentage+'%'}"></div>
+                                <span>{{group.Value.Key}}[{{group.Value.Avg.toLocaleString()}}]</span>
+                            </div>
+                        </div>
+                        <div class="last" *ngIf="last">
+                            <ul style="padding-left:15px">
+                                <li style="height:30px" *ngFor="let itGroup of group.DataSet">
+                                    <div class="progress" [ngClass]="{selected: itGroup.Key==group.Value.Key && group.Name=='AccountTeam'}">
+                                        <div [ngStyle]="{'width': itGroup.Percentage+'%'}"></div>
+                                        <span>{{itGroup.Key}} [{{itGroup.Avg.toLocaleString()}}]</span>
+                                    </div>
+                                    <div *ngIf="group.Name!='AccountTeam'" style="position:absolute;display:inline-block" com-dropdown-button [LayoutPopupLeft]='-118' [Title]="IconGroup" [DataSet]="meta.GroupableFields" [DisplayField]="'Name'" [ExclusiveList]="selectedGroupableFieldsRange"
+                                        [ExclusiveField]="'Name'" (onItemClicked)="onGroupChanged($event, itGroup)"></div>
+                                    <div *ngIf="group.Name=='AccountTeam'" style="position:absolute;display:inline-block">
+                                        <button class="btn btn-primary" type="button" (click)="onSelectLastGroup(itGroup) " [ngClass]="{'toggled': mouseDragging}">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    
+                                    </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div (click)="(RightTab=='Regions'?RightTab='':RightTab='Regions')" style="cursor:pointer">
+                    <span>
+                    Segment & Zoom
+                </span>
+                    <span>
+                    <i class="fa fa-caret-down" aria-hidden="true" *ngIf="RightTab!='Regions'"></i>
+                    <i class="fa fa-caret-up" aria-hidden="true" *ngIf="RightTab=='Regions'"></i>
+                </span>
+                </div>
+                <ul *ngIf="RightTab=='Regions'">
+                    <li>
+                        <span class="header">X-Axis Line</span>
+                        <div class="input-group" style="width:100px">
+                            <input class="form-control" [value]="xdash" (input)="xdash=$event.target.value " />
+                            <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" (click)="addXDash() "><i class="fa fa-plus-circle " aria-hidden="true "></i></button>
+                        </span>
+                        </div>
+                        <div>
+                            <div class="dash-tag" *ngFor="let xd of meta.XDashes ">
+                                <span>{{xd}}</span>
+                                <i (click)="removeXDash(xd) " class="fa fa-times" style="cursor:pointer" aria-hidden="true "></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="header">Y-Axis Line</span>
+                        <div class="input-group" style="width:100px">
+                            <input [value]="ydash" class="form-control" (input)="ydash=$event.target.value " />
+                            <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" (click)="addYDash() "><i class="fa fa-plus-circle " aria-hidden="true "></i></button>
+                </span>
+                        </div>
+
+                        <div>
+
+                            <div class="dash-tag" *ngFor="let yd of meta.YDashes ">
+                                <span>{{yd}}</span>
+                                <i (click)="removeYDash(yd)" class="fa fa-times" style="cursor:pointer" aria-hidden="true "></i>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li style="padding: 10px">
+                        <button class="btn btn-primary" type="button" (click)="mouseFilterStart() " [ngClass]="{'btn-toggled': mouseDragging}">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" ></i><span>Segment & Zoom</span>
+                    </button>
+                    </li>
+                    <li style="padding: 10px" *ngIf="regionMain!=null">
+                        <span>Current Region [{{regionMain[0]}},{{regionMain[1]}}]-[{{regionMain[2]}},{{regionMain[3]}}]</span>
+                        <i (click)="removeCurrentRegion()" class="fa fa-times" style="cursor:pointer" aria-hidden="true "></i>
+
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div (click)="(RightTab=='Configurations'?RightTab='':RightTab='Configurations')" style="cursor:pointer">
+                    <span>Configuration</span>
+                    <span>
+                    <i class="fa fa-caret-down" aria-hidden="true" *ngIf="RightTab!='Configurations'"></i>
+                    <i class="fa fa-caret-up" aria-hidden="true" *ngIf="RightTab=='Configurations'"></i>
+                </span>
+                </div>
+                <ul *ngIf="RightTab=='Configurations'">
+                    <li>
+                        <span class="header">Displays</span>
+                        <div style="position: relative" com-dropdown [DataSet]="meta.Fields" [DisplayFieldName]="''" [IsMultiSelect]="true" [Selected]="meta.DisplayFields" (onDataChange)="onDisplayChanged($event)"></div>
+                    </li>
+                    <li>
+                        <span class="header">Details</span>
+                        <div style="position: relative" com-dropdown [DataSet]="meta.Fields" [DisplayFieldName]="''" [IsMultiSelect]="false" [SingleSelected]="meta.DetailFieldName" (onDataChange)="onDetailChanged($event)"></div>
+                    </li>
+                    <li>
+                        <span class="header">Value</span>
+                        <div style="position: relative" com-dropdown [DataSet]="meta.Fields" [DisplayFieldName]="''" [IsMultiSelect]="false" [SingleSelected]="meta.ValueFieldName" (onDataChange)="onValueChanged($event)"></div>
+                    </li>
+                    <li>
+                        <span class="header">X Axis</span>
+                        <div style="position: relative" com-dropdown [DataSet]="meta.Fields" [DisplayFieldName]="''" [IsMultiSelect]="false" [SingleSelected]="meta.XFieldName" (onDataChange)="onXAxisChanged($event)"></div>
+                    </li>
+                    <li>
+                        <span class="header">Y Axis</span>
+                        <div style="position: relative" com-dropdown [DataSet]="meta.Fields" [DisplayFieldName]="''" [IsMultiSelect]="false" [SingleSelected]="meta.YFieldName" (onDataChange)="onYAxisChanged($event)"></div>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+    <!--<div class="cssmenuItem" id="cssmenu">
+        <span>Filters</span>
+
+        <ul>
+            <li *ngFor="let option of FilterOptions">
+                <a (click)="option.collapsed=!option.collapsed">{{option.name}}</a>
+
+                <span class="checkbox-after" style="position: absolute;top: 5px;right: 5px;" (click)="option.chooseAll();refreshCurrentDataSet();" [ngClass]="{on:option.isSelectedAll()}"></span>
+                <ul [ngClass]="{expanded:!option.collapsed}">
+                    <li *ngFor="let item of option.display">
+                        <a class="checkbox" (click)="option.choose(item);refreshCurrentDataSet();" [ngClass]="{on:option.selected.indexOf(item) >= 0}">{{item}}</a>
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+    <div class="cssmenuItem" id="cssmenu">
+        <span>Actions</span>
+        <ul>
+            <li id="ppmMenu" class="has-sub"><a href="http://localhost:8084/ProcessMonitoring/login.action;jsessionid=DAA46EBC46BC345058791B40016FB36C#">View Diagram </a></li>
+            <li><a href="http://localhost:8084/ProcessMonitoring/adminDiagram.action" class="class java.util.HashMap">Admin Diagram</a></li>
+            <li><a class="last">Menu3</a></li>
+        </ul>
+    </div>-->
+</nav>

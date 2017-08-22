@@ -1,0 +1,17 @@
+.tree-diagram {}
+
+.tree-diagram ul {
+    list-style: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+
+.tree-diagram .input-group span {
+    height: 33px;
+    width: 33px;
+}
+
+.tree-diagram .input-group .form-control {
+    z-index: 0 !important;
+}

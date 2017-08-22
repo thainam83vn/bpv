@@ -1,0 +1,35 @@
+<!--<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-1">Id</div>
+        <div class="col-sm-5">Diagram Name</div>
+        <div class="col-sm-1">Parent Id</div>
+    </div>
+    <div class="row" *ngFor="let d of diagrams">
+        <div class="col-sm-1">{{d.Id}}</div>
+        <div class="col-sm-5">{{d.Name}}</div>
+        <div class="col-sm-1">{{d.ParentId}}</div>
+    </div>
+</div>-->
+<div class="admin-diagram">
+    <div tree-diagram [Root]="root" style="font-size:15px" (addClick)="addChild($event)" (removeClick)="removeDiagram($event)" (initControl)="initTreeDiagram($event)"></div>
+    <div class="diagram-detail" *ngIf="diagram!=null">
+        <div class="row">
+            <div class="col-sm-2">Name</div>
+            <div class="col-sm-10"><input class="form-control" [value]="diagram.Name" (change)="diagram.Name=$event.target.value" /></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">File</div>
+            <div class="col-sm-10">
+                <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".svg">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <tg-button (onClick)="save($event)" [title]="'Save'"></tg-button>                
+                
+                <button class="btn btn-primary" (click)="diagram=null">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

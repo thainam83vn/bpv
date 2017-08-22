@@ -1,0 +1,12 @@
+{
+  "name": "node-mysql",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "csvtojson": "^1.1.7",
+    "express": "^4.10.6",
+    "multer": "^1.3.0",
+    "mysql": "^2.5.4"
+  }
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE htm>
+<!-- saved from url=(0096)http://localhost:8084/ProcessMonitoring/login.action;jsessionid=DAA46EBC46BC345058791B40016FB36C -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Process Monitoring</title>
+
+    <!--<link rel="stylesheet" src="./css/bootstrap.min.css">-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <!--<script src="https://use.fontawesome.com/d2f651349a.js"></script>-->
+
+    <script>
+        System.import('app').catch(function(err) {
+            console.error(err);
+        });
+    </script>
+    <style>
+        header.fixLeftNav,
+        section.fixLeftNav {
+            margin-left: 200px;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+    <section>
+        <header [ngClass]="{'fixLeftNav':fixLeftNav}">
+
+            <div class="header">
+                <img src="./layout_content/BPI_Icon.png" alt="Icon">
+                <span>Business Performance Visualization</span>
+                <!-- <span class="topright"><a href="http://localhost:8084/ProcessMonitoring/logout.action">Logout</a></span> -->
+            </div>
+            <div>
+                <nav class="nav">
+                    <ul class="main-navigation">
+                        <li [ngClass]="{active:page=='BusinessMonitor'}" id="diagramMenu" style="cursor:pointer;z-index:9999">
+                            <a (click)="page='BusinessMonitor'">Business Performance Monitoring</a>
+                            <ul id="diagramSubmenus">
+                                <li><a (click)="showAdminDiagram()">Upload Diagram</a></li>
+                                <li><a (click)="showAdminData()">Upload Data</a></li>
+                                <li *ngFor="let item of diagrams" diagram-menu [Root]="item" (menuClick)="diagramClick($event)" style="list-style: none;color:#fff;margin-top:5px"></li>
+                            </ul>
+                        </li>
+                        <li><a>Dashboard</a>
+                        </li>
+                        <li [ngClass]="{active:page=='PredictiveAnalytics'}" style="cursor:pointer"><a (click)="page='PredictiveAnalytics'">Predictive Analytics</a>
+                        </li>
+                        <li><a>Capacity Planning</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </header>
+
+        <section [ngClass]="{'fixLeftNav':fixLeftNav}">
+            <predictive-analysis *ngIf="page=='PredictiveAnalytics'" [(fixLeftNav)]="fixLeftNav" (initControl)="initPredictive($event)"></predictive-analysis>
+            <business-monitor *ngIf="page=='BusinessMonitor'" (initControl)="initBusinessMonitor($event)" (onDiagramChanged)="diagramChanged($event)">
+            </business-monitor>
+        </section>
+
+        <footer>
+            <span>@ 2016 Copyright</span>
+        </footer>
+    </section>
+    <script type="text/javascript" src="./Process Monitoring_files/site.js.download"></script>
+    <script type="text/javascript" src="./Process Monitoring_files/ppmMenu.js.download"></script>
+
+</body>
+
+</html>

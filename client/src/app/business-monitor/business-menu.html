@@ -1,0 +1,10 @@
+<ul style="list-style:none">
+    <li *ngIf="Root.Children.length>0" class="has-sub">
+        <a (click)="hover=!hover">{{Root.Name}}</a>
+        <ul *ngIf="hover" style="list-style:none">
+            <li business-menu *ngFor="let item of Root.Children" [Root]="item" (menuClick)="menuClickLocal(item)"></li>
+        </ul>
+    </li>
+
+    <li *ngIf="Root.Children.length==0" style="list-style:none"><a (click)="menuClickLocal(Root)">{{Root.Name}}</a></li>
+</ul>

@@ -1,0 +1,32 @@
+nav.left {
+    width: 50px;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    background-color: #353d47;
+    color: white;
+    overflow: hidden;
+    z-index: 99999;
+}
+
+nav.left .cssmenuItem {
+    display: none !important;
+}
+
+nav.left.fixed {
+    width: 250px;
+}
+
+nav.left.fixed .cssmenuItem {
+    display: block !important;
+}
+
+nav.left:hover {
+    width: 250px;
+}
+
+nav.left:hover .cssmenuItem {
+    display: block !important;
+}

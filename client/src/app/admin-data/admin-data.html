@@ -1,0 +1,32 @@
+<div class="admin-data">
+    <ul>
+
+        <li *ngFor="let t of tableNames">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2" (click)="removeTable(t)"><i  class="fa fa-trash-o" aria-hidden="true" style="cursor:pointer" ></i></span>
+                <input readonly type="text" class="form-control" aria-describedby="sizing-addon2" [value]="t.Table_Name">
+            </div>
+        </li>
+    </ul>
+
+    <div class="upload-detail">
+        <div class="row">
+            <div class="col-sm-2">Name</div>
+            <div class="col-sm-10"><input class="form-control" [value]="tableName" (change)="tableName=$event.target.value" /></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">File</div>
+            <div class="col-sm-10">
+                <input id="fileUpload" type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".csv">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <!-- <button class="btn btn-primary" (click)="save()">Upload</button> -->
+                <tg-button (onClick)="save($event)" [title]="'Upload'"></tg-button>
+                <button class="btn btn-primary" (click)="diagram=null">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

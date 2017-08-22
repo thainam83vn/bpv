@@ -1,0 +1,29 @@
+.metric-setting {
+    position: absolute;
+    right: 50px;
+    background-color: #353d47;
+    color: #fff;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+.metric-setting .btn-close {
+    position: absolute;
+    top: 0px;
+    right: 4px;
+}
+
+.metric-setting ul {
+    list-style: none;
+}
+
+.metric-setting ul li {
+    list-style: none;
+}
+
+.metric-setting ul li span {
+    width: 75px;
+}

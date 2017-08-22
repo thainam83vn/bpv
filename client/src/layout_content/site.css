@@ -1,0 +1,95 @@
+html, body{
+	margin:0px;
+}
+
+body > nav{	
+	width: 50px;
+	height:100%;	
+	position:fixed;
+	top:0px;
+	z-index:2;
+	background-color:#353d47;
+	color: white;
+	overflow:hidden;
+	text-align: center;
+}
+
+body > nav:hover{
+	width: 250px;
+}
+
+body > nav .logo{	
+	padding-left: 12px;
+	padding-top:10px;
+	padding-bottom:6px;
+	background-color: #19B5FE;
+	margin:0px;	
+}
+
+body > section{
+	margin-left:50px;	
+}
+
+body > section > header{	
+	color:#353d47;	
+	width:calc(100% - 0px);
+	position:relative;
+	z-index:1;
+	/*background-color:#fff;	
+	top:0px;*/
+}
+.header > img{
+	width:100px;
+	margin-top:10px;
+	margin-left:10px;
+}
+.header > span:nth-child(2){	
+	font-size: 24pt;
+	color: blue;	
+}
+
+body > section > section{
+	/*margin-top:103px;*/
+}
+
+body > section > footer{
+	background-color:#fff;
+	position:fixed;
+	width:100%;
+	bottom:0px;
+	padding:10px;
+	font-size: 12px;
+	font-family:'Roboto Condensed', sans-serif;
+}
+
+.toggle-button{	
+	border: medium none;
+	background-color: transparent;
+	vertical-align: middle;
+	margin-top: 5px;
+}
+
+.toggle-button:hover{
+	cursor:pointer;
+	transform:rotate(90deg);
+}
+.toggle-button .icon-bar{
+	display: block;
+	width: 26px;
+	height: 3px;
+	margin: 4px 0px;
+	background-color:gray;
+}
+
+.topright{
+	float:right;
+}
+
+.svgShape:hover{
+	cursor:pointer;
+	background-color:transparent;
+}
+
+.nav .main-navigation .active {
+	background-color: #353d47;
+}

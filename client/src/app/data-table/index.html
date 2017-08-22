@@ -1,0 +1,7 @@
+<div style="margin: auto;  margin-bottom: 50px;" *ngIf="datasource">
+    <data-table id="persons-grid" headerTitle="Data" [items]="items" [itemCount]="itemCount" (reload)="reloadItems($event)" (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)" [rowTooltip]="rowTooltip">
+
+        <data-table-column *ngFor="let c of fields" [property]="c" [header]="c" [sortable]="true" [resizable]="true">
+        </data-table-column>
+    </data-table>
+</div>

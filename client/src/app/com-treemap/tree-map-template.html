@@ -1,0 +1,12 @@
+<div class="tree-map-container" *ngFor="let item of items" [ngStyle]="{width:item.Width + '%', height: item.Height + '%',top:item.Top+'%',left:item.Left+'%', 'background-color':item.Color}">
+    <div>
+        <div *ngIf="item['Height']>=30">
+            <span>{{item[display]}}</span><br>
+            <span>{{item[orgPercent]}}%</span>
+        </div>
+        <div *ngIf="item['Height']<30">
+            <span>{{item[display]}} {{item[orgPercent]}}%</span>
+        </div>
+    </div>
+    <div treemap *ngIf="item[key]?.length" [key]="key" [data]="item[key]" [display]="display" [percent]="percent" [orgPercent]="orgPercent" [vertical]="vertical"></div>
+</div>

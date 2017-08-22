@@ -1,0 +1,49 @@
+<div class="col-sm-12" *ngIf="ShowMode=='Diagram'">
+    <div class="row">
+        <div id="content"></div>
+    </div>
+    <div style="margin-top:100px" class="row">
+        <!-- <div style="margin-left: 15px;cursor:pointer" data-grid [datasource]="currentDS.DataSet" [displays]="currentDS.DisplayFields" [fields]="currentDS.Fields"></div> -->
+        <div style="margin-left: 15px;cursor:pointer" tg-data-table (initControl)="initDataTable($event)"></div>
+    </div>
+</div>
+<div *ngIf="ShowMode=='Diagram'" metric-setting [isShowData]="isShowData" (onMetricChanged)="metricChanged($event)" (onIsShowData)="isShowData=$event" (initControl)="initMetricSetting($event)" (onApply)="metricSettingChange($event)" (onTableChanged)="tableChanged($event)"></div>
+
+
+<admin-diagram *ngIf="ShowMode=='AdminDiagram'" (initControl)="initAdminDiagram($event)" (onDiagramChanged)="diagramChanged($event)"></admin-diagram>
+<admin-data *ngIf="ShowMode=='AdminData'"></admin-data>
+
+<nav class="left" [ngClass]="{fixed:fixLeftNav}">
+    <button class="toggle-button" (click)="fixLeftNav=!fixLeftNav">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+    </button>
+    <div class="cssmenuIcon">
+        <ul>
+
+        </ul>
+    </div>
+
+    <div class="cssmenuItem" id="cssmenu">
+        <span>Actions</span>
+        <ul>
+            <li>
+                <a (click)="showAdminDiagram()">Upload Diagram</a>
+            </li>
+            <li>
+                <a (click)="showAdminData()">Upload Data</a>
+            </li>
+            <li class="has-sub">
+                <a (click)="viewdiagramHover=!viewdiagramHover">View Diagrams</a>
+                <ul *ngIf="viewdiagramHover">
+                    <li *ngFor="let item of diagrams" business-menu [Root]="item" (menuClick)="diagramClick($event)"></li>
+                </ul>
+            </li>
+
+            <!--<li id="ppmMenu" class="has-sub"><a href="http://localhost:8084/ProcessMonitoring/login.action;jsessionid=DAA46EBC46BC345058791B40016FB36C#">View Diagram </a></li>
+            <li><a href="http://localhost:8084/ProcessMonitoring/adminDiagram.action" class="class java.util.HashMap">Admin Diagram</a></li>
+            <li><a class="last">Menu3</a></li>-->
+        </ul>
+    </div>
+</nav>

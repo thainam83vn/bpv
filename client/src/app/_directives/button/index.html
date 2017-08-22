@@ -1,0 +1,4 @@
+<button class="tg-button btn btn-primary" (click)="onClickLocal()">
+    <span *ngIf="!busy">{{title}}</span>
+    <div class="loader" *ngIf="busy"></div>
+</button>

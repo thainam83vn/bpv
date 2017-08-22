@@ -1,0 +1,32 @@
+<div class="tree-diagram">
+    <ul *ngIf="Root!=null" style="list-style:none">
+        <li *ngIf="Root.Children.length>0" class="has-sub">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2" (click)="removeChild(Root)"><i *ngIf="Root.Id!=0" class="fa fa-trash-o" aria-hidden="true" style="cursor:pointer" ></i></span>
+                <span class="input-group-addon" id="sizing-addon2" (click)="addChild(Root)"><i class="fa fa-plus" aria-hidden="true" style="cursor:pointer" ></i></span>
+                <input readonly type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" [value]="Root.Name">
+            </div>
+
+            <!-- <a>{{Root.Name}}</a>
+            <button class="btn btn-primary" (click)="addChild(Root)" style="width:20px;height:20px;padding:0px"><i class="fa fa-plus" aria-hidden="true" style="cursor:pointer;font-size:9px" ></i></button>
+            <button class="btn btn-primary" (click)="removeChild(Root)" *ngIf="Root.Id!=0" style="width:20px;height:20px;padding:0px"><i class="fa fa-minus" aria-hidden="true" style="cursor:pointer;font-size:9px" ></i></button> -->
+
+
+            <ul style="list-style:none">
+                <li tree-diagram *ngFor="let item of Root.Children" [Root]="item" (addClick)="addChild($event)" (removeClick)="removeChild($event)"></li>
+            </ul>
+        </li>
+
+        <li *ngIf="Root.Children.length==0" style="list-style:none">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2" (click)="removeChild(Root)"><i *ngIf="Root.Id!=0" class="fa fa-trash-o" aria-hidden="true" style="cursor:pointer" ></i></span>
+                <span class="input-group-addon" id="sizing-addon2" (click)="addChild(Root)"><i class="fa fa-plus" aria-hidden="true" style="cursor:pointer" ></i></span>
+                <input readonly type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" [value]="Root.Name">
+            </div>
+
+            <!-- <a>{{Root.Name}}</a>
+            <button class="btn btn-primary" (click)="addChild(Root)" style="width:20px;height:20px;padding:0px"><i class="fa fa-plus" aria-hidden="true" style="cursor:pointer;font-size:9px" ></i></button>
+            <button class="btn btn-primary" (click)="removeChild(Root)" *ngIf="Root.Id!=0" style="width:20px;height:20px;padding:0px"><i class="fa fa-minus" aria-hidden="true" style="cursor:pointer;font-size:9px" ></i></button> -->
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,69 @@
+<style>
+    /*.btn-group.multiple {
+        position: absolute !important;
+        margin-left: 10px;
+    }*/
+    
+    .btn-group.multiple {
+        position: absolute;
+        top: 32px;
+        /*left: 0px;*/
+    }
+    
+    .btn-group.multiple>.dropdown-menu {
+        overflow: auto !important;
+    }
+    
+    .btn-group.multiple>.dropdown-menu>li>a:before {
+        font-family: "FontAwesome";
+        font-size: 16px;
+        content: "\f096";
+        margin: 10px;
+    }
+    
+    .btn-group.multiple>.dropdown-menu>li>a.on:before {
+        content: "\f00c";
+    }
+    
+    .pointer {
+        cursor: pointer;
+    }
+    
+    button.dropdown-toggle {
+        height: 25px;
+        padding: 3px 6px;
+    }
+</style>
+<button *ngIf="IsMultiSelect" type="button" style="min-width:150px" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" (click)="btnClick()">
+                                {{Title}}
+                                <span class="caret"></span>
+                                <span class="selections ng-binding"></span>
+</button>
+<div *ngIf="IsMultiSelect" class="btn-group multiple" [ngClass]="{open: down}" [ngStyle]="{'left': LayoutPopupLeft + 'px'}">
+    <ul class="dropdown-menu" style="max-height:400px;overflow:overlay">
+        <li style="margin-left: 42px;" (click)="selectAll()" class="pointer" [hidden]="Selected.length==DataSet.length">Select All</li>
+        <li style="margin-left: 42px;" (click)="unselectAll()" class="pointer" [hidden]="Selected.length!=DataSet.length">Unselect All</li>
+        <li class="divider"></li>
+        <li class="pointer" *ngFor="let item of DataSet" [hidden]="isExclusive(item)">
+            <a (click)="itemClick(item)" [ngClass]="{on:Selected.indexOf(item)>=0}">
+                {{DisplayFieldName==''?item:item[DisplayFieldName]}}
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<button *ngIf="!IsMultiSelect" type="button" style="min-width:150px" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" (click)="btnClick()">
+                                {{selectedDisplay()}}
+                                <span class="caret"></span>
+                                <span class="selections ng-binding"></span>
+</button>
+<div *ngIf="!IsMultiSelect" class="btn-group multiple" [ngClass]="{open: down}" [ngStyle]="{'left': LayoutPopupLeft + 'px'}">
+    <ul class="dropdown-menu" style="max-height:400px;overflow:overlay">
+        <li class="pointer" *ngFor="let item of DataSet" [hidden]="isExclusive(item)">
+            <a (click)="itemClick(item)" [ngClass]="{on:SingleSelected==item}">
+                {{DisplayFieldName==''?item:item[DisplayFieldName]}}
+            </a>
+        </li>
+    </ul>
+</div>
